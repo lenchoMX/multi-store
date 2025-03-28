@@ -20,4 +20,5 @@ Ver `docs/workflow.md`.
 Ver `docs/tasks.md`.
 
 ## Notas
-- Los cambios principales en la base de datos y modelos se definen en `draft.yml` y se generan con Blueprint. Ajustes manuales se documentan si son necesarios.
+- El `draft.yml` es la fuente principal de verdad, diseñado para ser robusto, escalable y consistente.
+- Otros archivos (`CartController`, jobs, etc.) son borradores de referencia y deben ajustarse al `draft.yml`.
