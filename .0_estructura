@@ -39,3 +39,29 @@ resources/views/
     │   │   ├── minimal.blade.php
     │   │   ├── business.blade.php
     │   │   └── creative.blade.php
+
+
+resources/views/
+├── layouts/
+│   ├── minimal.blade.php        # Layout base para "minimal"
+│   ├── business.blade.php       # Layout base para "business"
+│   ├── creative.blade.php       # Layout base para "creative"
+├── components/
+│   ├── minimal/
+│   │   ├── navbar.blade.php
+│   │   ├── footer.blade.php
+│   │   └── cart.blade.php
+│   ├── business/
+│   │   ├── header.blade.php
+│   │   └── footer.blade.php
+│   ├── creative/
+│   │   ├── header.blade.php
+│   └── shared/                  # Componentes reutilizables entre temas
+│       ├── alert.blade.php
+├── products/
+│   ├── show.blade.php           # Vista principal, carga tema dinámicamente
+├── categories/
+│   ├── index.blade.php          # Lista de categorías
+│   ├── show.blade.php           # Detalle de categoría
+├── cart/
+│   ├── show.blade.php           # Vista del carrito
