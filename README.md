@@ -8,14 +8,21 @@ Este proyecto es un sistema de multitiendas desarrollado en Laravel, diseñado p
 - Centralizar productos y permitir personalización por tienda.
 - Separar la lógica de checkout en un proyecto independiente para mayor escalabilidad y seguridad.
 
+## Tecnologías
+- **Framework**: Laravel (versión más reciente).
+- **Frontend**: Bootstrap 5.3 (o la versión más reciente disponible).
+- **Alertas**: SweetAlert2 para notificaciones interactivas.
+- **Base de datos**: MySQL/PostgreSQL (según configuración).
+
 ## Estructura del Proyecto
 ### Proyecto 1: Multi-Store (este repositorio)
 - **Base de datos**:
-  - `products`: Tabla general de productos (id, name, description, etc.).
-  - `site_products`: Relación entre productos y tiendas (site_id, product_id, price, etc.).
-  - `sites`: Configuración de cada tienda (domain, name, theme, etc.).
+  - `products`: Tabla general de productos (id, slug, name, description).
+  - `stores`: Configuración de cada tienda (store_url, name, theme_id, settings).
+  - `store_products`: Relación entre productos y tiendas (price, stock).
+  - `themes`: Temas disponibles (name, css_file, layout_file).
 - **Funcionalidad**:
-  - Carga dinámica de la tienda según el dominio.
+  - Carga dinámica de la tienda y su tema según el dominio.
   - Carrito de compras que redirige al checkout en un subdominio.
 
 ### Proyecto 2: Checkout (futuro)
@@ -27,14 +34,14 @@ Este proyecto es un sistema de multitiendas desarrollado en Laravel, diseñado p
 - En fase de diseño de estructura y optimización.
 
 ## Tareas Pendientes
-- Definir estructura completa de la base de datos.
-- Implementar middleware para detección de dominios.
-- Diseñar sistema de temas/configuraciones por tienda.
-- Integrar redirección al checkout.
+- Implementar migraciones para la base de datos.
+- Configurar middleware para detección de dominios y temas.
+- Integrar Bootstrap 5.3 y SweetAlert2 en las vistas.
+- Diseñar redirección al checkout.
 
 ## Notas
-- Este proyecto busca resolver problemas de URLs duplicadas (ej. `store.com/producto_uno.html`) mediante una tabla de productos general.
-- Se planea optimizar nombres de variables, archivos y estructura de código.
+- Usa una tabla de productos general para evitar URLs duplicadas (ej. `store.com/producto-uno`).
+- Los temas son escalables y se cargan dinámicamente según la tienda.
 
 ## Contribuir
 - Revisar `draft.yml` para sugerencias.
