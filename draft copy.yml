@@ -1,0 +1,79 @@
+models:
+  Store:
+    url: string:99
+    css: string:99
+    email: string:99 unique
+    whatsapp: unsignedInteger unique
+    main_categories: json
+  Brand:
+    name: string:99
+    image: tring:99 nullable
+Category:
+    name: string:255
+    slug: string:255:unique
+    parent_id: id foreign nullable
+    store_id: id foreign
+    timestamps: true
+    relationships:
+      belongsTo: Store
+      belongsTo: Category, parent_id
+      hasMany: Category, 
+        
+  Categorys:
+    name: string:255
+    slug: string:255:unique
+    parent_id: foreignId:nullable:constrained:categories
+    store_id: foreignId:nullable:constrained
+    timestamps: true
+    relations:
+      parent: belongsTo:Category
+      children: hasMany:Category
+      productStores: belongsToMany:ProductStore:category_product_store
+      store: belongsTo:Store
+
+  Product:
+    name: string:255
+    slug: string:255
+    price: decimal:8,2
+    brand_id: id foreign
+    relationships:
+      belongsToMany: Feature
+      hasMany: Description, ShortDescription, Image
+  ProductStore:
+    store_id: id foreign
+    product_id: id foreign
+    main_image: id foreign
+    description_id: id foreign nullable
+    short_description_id: id foreign nullable
+    status: set:available,out default:available
+    price: decimal:8,2
+    currency_id: id foreign
+    stock: unsignedInteger default:999
+    view: unsignedInteger default:0
+    ratingValue: unsignedInteger default:0
+    reviewCount: unsignedInteger default:0
+    comment: unsignedInteger default:0
+    relationships:
+      hasMany: Comment
+  Description:
+    product_id: id foreign
+    description: text
+  ShortDescription:
+    product_id: id foreign
+    description: string:255 
+  Feature:
+    name: string:255
+    product_id: id foreign default:0
+    relationships:
+      hasMany: Feature
+  Image:
+    product_id: id foreign
+    name: string:255
+  Comment:
+    user_id: id
+    product_store_id: id foreign
+    comment: string:255
+    Currency:
+    code: string:5
+    exchange_rate: decimal:6,2
+seeders: Product, ProductStore

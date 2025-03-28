@@ -1,0 +1,210 @@
+////////////////////////////
+////////////////////////////
+
+class CategoryStore extends Model
+{
+    use HasFactory;
+
+    //////////////////////////////////
+
+
+    public function children(): HasMany
+    {
+        return $this->hasMany(CategoryStore::class, 'parent_id');
+    }
+    
+
+    public function getFullPath()
+    {
+        $path = $this->category->slug;
+        $parent = $this->parent;
+        while ($parent) {
+            $path = $parent->category->slug . '/' . $path;
+            $parent = $parent->parent;
+        }
+        return $path;
+    }
+
+}
+
+////////////////////////////
+////////////////////////////
+
+ProductStore: 
+
+public function getPrimaryCategoryUrl()
+    {
+        $primaryCategoryStore = $this->primaryCategoryStore ?? $this->categoryStores()->first();
+        if (!$primaryCategoryStore || !$primaryCategoryStore->category) {
+            return route('product.show', ['path' => 'sin-categoria', 'productSlug' => $this->product->slug]);
+        }
+        return route('product.show', [
+            'path' => $primaryCategoryStore->getFullPath(),
+            'productSlug' => $this->product->slug,
+        ]);
+    }
+
+////////////////////////////
+////////////////////////////
+
+User:
+
+////////////////////////////
+
+public function user()
+{
+return $this->belongsTo(User::class);
+}
+
+public function store()
+{
+return $this->belongsTo(Store::class);
+}
+
+public function items()
+{
+return $this->hasMany(OrderItem::class);
+}
+
+Product:
+
+////////////////////////////
+////////////////////////////
+    
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class)->withPivot('is_primary')->withTimestamps();
+    }
+
+    public function primaryCategory()
+    {
+        return $this->categories()->wherePivot('is_primary', true)->first();
+    }
+
+    public function getPrimaryCategoryUrl()
+    {
+        $primaryCategory = $this->primaryCategory() ?? $this->categories()->first();
+        if (!$primaryCategory) {
+            return route('product.show', ['path' => 'sin-categoria', 'productSlug' => $this->slug]);
+        }
+        return route('product.show', [
+            'path' => $primaryCategory->getFullPath(),
+            'productSlug' => $this->slug,
+        ]);
+    }
+
+
+    
+
+////////////////////////////
+Category:
+////////////////////////////
+
+public function getFullPath()
+{
+    $path = $this->slug;
+    $parent = $this->parent;
+    while ($parent) {
+        $path = $parent->slug . '/' . $path;
+        $parent = $parent->parent;
+    }
+    return $path;
+}
+
+public function parent()
+{
+    return $this->belongsTo(Category::class, 'parent_id');
+}
+
+public function products() ??
+{
+return $this->belongsToMany(Product::class, 'product_store');
+}
+
+
+////////////////////////////
+
+public function categoryStores(): BelongsToMany
+    {
+        return $this->belongsToMany(CategoryStore::class)->withTimestamps();;
+    }
+    public function primaryCategoryStore()
+    {
+        return $this->belongsTo(CategoryStore::class, 'primary_category_store_id');
+    }
+
+    public function getPrimaryCategoryUrl()
+    {
+        $primaryCategoryStore = $this->primaryCategoryStore ?? $this->categoryStores()->first();
+        if (!$primaryCategoryStore || !$primaryCategoryStore->category) {
+            return route('product.show', ['path' => 'sin-categoria', 'productSlug' => $this->product->slug]);
+        }
+        return route('product.show', [
+            'path' => $primaryCategoryStore->getFullPath(),
+            'productSlug' => $this->product->slug,
+        ]);
+    }
+
+
+public function categories()???
+{
+return $this->belongsToMany(CategoryStore::class, 'category_store_product_store', 'product_store_id', 'category_store_id');
+}
+
+
+////////////////////////////
+////////////////////////////
+
+class Feature extends Model
+{
+    protected $fillable = ['name', 'parent_id'];
+
+    public function parent()
+    {
+        return $this->belongsTo(Feature::class, 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Feature::class, 'parent_id');
+    }
+}
+
+
+////////////////////////////
+////////////////////////////
+Brand: ?
+
+
+
+public function products()
+{
+return $this->hasMany(Product::class);
+}
+
+
+Store: ?
+
+////////////////////////////
+
+public function categories()
+{
+return $this->belongsToMany(Category::class, 'category_store');
+}
+
+
+
+Reemplaza tu_usuario con tu usuario de cPanel.
+Verifica la ruta de PHP con tu hosting si /usr/local/bin/php no funciona (puede ser /usr/bin/php u otra).
+
+/usr/local/bin/php /home/tu_usuario/public_html/artisan carts:mark-abandoned
+php artisan make:job MarkAbandonedCarts
+
+php artisan make:command RunMarkAbandonedCarts
+
+
+/usr/local/bin/php /home/tu_usuario/public_html/artisan orders:send-payment-reminders
+
+php artisan make:job SendPaymentReminders
+php artisan make:notification PaymentReminderNotification
+php artisan make:command SendPaymentRemindersCommand

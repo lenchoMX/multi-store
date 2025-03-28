@@ -1,0 +1,41 @@
+resources/views/
+    ├── layouts/
+    │   ├── minimal/
+    │   │   └── app.blade.php
+    │   ├── business/
+    │   │   └── app.blade.php
+    │   ├── creative/
+    │       └── app.blade.php
+    ├── components/
+    │   ├── minimal/
+    │   │   └── acordion.blade.php
+    │   │   └── footerSticky.blade.php
+    │   │   └── footer.blade.php
+    │   │   └── login.blade.php
+    │   │   └── navbar.blade.php
+    │   │   └── offcanvasMenu.blade.php
+    │   │   └── offcanvasCartItems.blade.php
+    │   │   └── register.blade.php   
+    │   ├── business/
+    │   │   └── header.blade.php
+    │   ├── creative/
+    │       └── header.blade.php
+    ├── products/
+    │   ├── show/
+    │   │   ├── minimal.blade.php
+    │   │   ├── business.blade.php
+    │   │   └── creative.blade.php
+    ├── categories/
+    │   ├── index/
+    │   │   ├── minimal.blade.php
+    │   │   ├── business.blade.php
+    │   │   └── creative.blade.php
+    │   ├── show/
+    │   │   ├── minimal.blade.php
+    │   │   ├── business.blade.php
+    │   │   └── creative.blade.php
+    ├── cart/
+    │   ├── show/
+    │   │   ├── minimal.blade.php
+    │   │   ├── business.blade.php
+    │   │   └── creative.blade.php

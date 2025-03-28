@@ -1,0 +1,121 @@
+models:
+  Theme:
+    name: string
+    description: text
+    css_file: string
+    layout_file: string
+
+  Store:
+    name: string
+    store_url: string
+    email: string
+    whatsapp: string
+    theme_id: id foreign:themes
+
+  Brand:
+    name: string:99
+    slug: string:255
+    image: string:99 nullable
+    relationships:
+      hasMany: Product
+        
+  Product:
+    name: string:255
+    slug: string:255
+    price: decimal:8,2
+    brand_id: id foreign:brands
+    relationships:
+      belongsToMany: Feature
+      hasMany: Description, ShortDescription, Image, ProductStore
+    
+  ProductStore:
+    store_id: id foreign:stores
+    product_id: id foreign:products
+    image_id: id foreign:images
+    description_id: id foreign:descriptions nullable
+    short_description_id: id foreign:short_descriptions nullable
+    status: set:available,out default:available
+    price: decimal:8,2
+    currency_id: id foreign:currencies
+    stock: unsignedInteger default:999
+    view: unsignedInteger default:0
+    rating_value: unsignedInteger default:0
+    review_count: unsignedInteger default:0
+    comment_count: unsignedInteger default:0
+    primary_category_store_id: id foreign:category_stores nullable
+    relationships:
+      belongsToMany: CategoryStore
+      hasMany: Comment
+    
+  Description:
+    product_id: id foreign:products
+    description: text
+    
+  ShortDescription:
+    product_id: id foreign:products
+    description: string:255
+        
+  Image:
+    product_id: id foreign:products
+    name: string:255
+    
+  Comment:
+    user_id: id
+    product_store_id: id foreign:product_stores
+    comment: string:255
+    
+  Currency:
+    code: string:5
+    exchange_rate: decimal:6,2
+
+  Category:
+    name: string:255
+    slug: string:255
+
+  Feature:
+    name: string
+    parent_id: id nullable foreign:features
+    timestamps: true
+
+  CategoryStore:
+    store_id: id foreign:stores
+    category_id: id foreign:categories
+    parent_id: id nullable foreign:category_stores
+    is_featured: boolean default:false # Nueva columna para categorías destacadas en el home
+    timestamps: true
+    relationships:
+      belongsTo: Category, Store
+      belongsToMany: ProductStore
+
+  Cart:
+    session_id: string nullable
+    user_id: id foreign nullable
+    product_store_id: id foreign:product_stores
+    quantity: integer default:1
+    status: enum:pending,checkout,abandoned,completed default:pending
+    abandoned_at: timestamp nullable
+    timestamps: true
+    relationships:
+      belongsTo: User, ProductStore
+  
+  Order:
+    user_id: id foreign nullable
+    store_id: id foreign:stores
+    name: string nullable
+    email: string nullable
+    address: string nullable
+    total: decimal:8,2
+    status: enum:pending,payment_pending,completed,cancelled default:pending
+    timestamps: true
+    relationships:
+      belongsTo: User, Store
+      hasMany: OrderItem
+
+  OrderItem:
+    order_id: id foreign:orders
+    product_store_id: id foreign:product_stores
+    quantity: integer
+    price: decimal:8,2
+    timestamps: true
+    relationships:
+      belongsTo: Order, ProductStore
