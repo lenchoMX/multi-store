@@ -3,18 +3,22 @@
 ## Proceso
 - La estructura se define en `draft.yml` con Laravel Shift Blueprint.
 - `php artisan blueprint:build` genera migraciones y modelos.
-- Relaciones `belongsTo` son implícitas vía claves foráneas y no se duplican en `relationships`.
 
 ## Esquema Actual (draft.yml)
 ```yaml
+## Esquema Actual (draft.yml)
 models:
   User:
+    store_id: id foreign:stores  # Agregado para vincular usuarios a tiendas
     name: string
-    email: string unique
+    surname: string
+    lastname: string
+    email: string
+    phone: string nullable
     password: string
     timestamps: true
     relationships:
-      hasMany: Cart, Order, Comment
+      hasMany: Address, Cart, Order, Comment
 
   Store:
     name: string
@@ -26,7 +30,7 @@ models:
     settings: json nullable
     timestamps: true
     relationships:
-      hasMany: StoreProduct, CategoryStore, Cart, Order
+      hasMany: User, StoreProduct, CategoryStore, Cart, Order, Address
 
   Theme:
     name: string unique
@@ -81,7 +85,7 @@ models:
     timestamps: true
     relationships:
       belongsToMany: CategoryStore
-      hasMany: Comment, Cart
+      hasMany: Comment, CartItem  # Cambié Cart por CartItem para alinearlo con una estructura más común
 
   Description:
     product_id: id foreign:products
@@ -131,31 +135,58 @@ models:
     session_id: string nullable
     user_id: id foreign:users nullable
     store_id: id foreign:stores
-    product_store_id: id foreign:store_products
-    quantity: integer default:1
-    price: decimal:8,2  # Precio al momento de agregar al carrito
     status: enum:pending,checkout,abandoned,completed default:pending
     abandoned_at: timestamp nullable
     timestamps: true
     relationships:
-      belongsTo: Order  # Cada ítem del carrito pertenece a una orden cuando se procesa
+      hasMany: CartItem
+
+  CartItem:
+    cart_id: id foreign:carts
+    store_product_id: id foreign:store_products
+    quantity: integer default:1
+    price: decimal:8,2  # Precio al momento de agregar al carrito
+    timestamps: true
 
   Order:
     user_id: id foreign:users nullable
     store_id: id foreign:stores
-    name: string nullable
-    email: string nullable
-    address: string nullable
+    address_id: id foreign:addresses nullable
     total: decimal:8,2
     status: enum:pending,payment_pending,completed,cancelled,abandoned default:pending
     abandoned_at: timestamp nullable
+    guest_name: string nullable
+    guest_email: string nullable
+    guest_address_line_1: string nullable
+    guest_address_line_2: string nullable
+    guest_city: string nullable
+    guest_state: string nullable
+    guest_postal_code: string nullable
+    guest_country: string nullable
+    guest_phone: string nullable
+    guest_recipient_name: string nullable
     timestamps: true
     relationships:
-      hasMany: Cart, OrderItem  # Order tiene ítems del carrito y detalles adicionales
+      hasMany: OrderItem
 
   OrderItem:
     order_id: id foreign:orders
     store_product_id: id foreign:store_products
     quantity: integer
     price: decimal:8,2
+    timestamps: true
+
+  Address:
+    user_id: id foreign:users
+    store_id: id foreign:stores
+    name: string nullable
+    address_line_1: string
+    address_line_2: string nullable
+    city: string
+    state: string
+    postal_code: string
+    country: string
+    phone: string nullable
+    recipient_name: string nullable
+    is_default: boolean default:false
     timestamps: true
