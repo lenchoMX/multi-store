@@ -1,0 +1,59 @@
+.theme-minimal {
+    --bs-primary: #FF5733; /* Color primario para minimal */
+    --bs-btn-border-radius: 0.5rem; /* Bordes redondeados */
+}
+
+.btn-close-minimal {
+    background-color: #dc3545; /* Rojo para cerrar */
+    border-color: #dc3545;
+    border-radius: var(--bs-btn-border-radius);
+    color: white;
+}
+
+.btn-open-minimal {
+    background-color: #28a745; /* Verde para abrir */
+    border-color: #28a745;
+    border-radius: var(--bs-btn-border-radius);
+    color: white;
+}
+
+.btn-send-minimal {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    border-radius: var(--bs-btn-border-radius);
+    color: white;
+}
+
+.btn-add-minimal {
+    background-color: #17a2b8; /* Cyan para agregar */
+    border-color: #17a2b8;
+    border-radius: var(--bs-btn-border-radius);
+    color: white;
+}
+
+.btn-remove-minimal {
+    background-color: #6c757d; /* Gris para eliminar */
+    border-color: #6c757d;
+    border-radius: var(--bs-btn-border-radius);
+    color: white;
+}
+
+.btn-view-minimal {
+    background-color: #007bff; /* Azul para ver */
+    border-color: #007bff;
+    border-radius: var(--bs-btn-border-radius);
+    color: white;
+}
+
+.theme-minimal .swal2-popup {
+    background-color: var(--bs-primary);
+}
+
+/* 
+    btn-close-{theme}: Para cerrar modales, formularios, etc.
+    btn-open-{theme}: Para abrir modales, secciones, etc.
+    btn-send-{theme}: Para enviar formularios.
+    btn-add-{theme}: Para agregar elementos (por ejemplo, al carrito).
+    btn-remove-{theme}: Para eliminar elementos.
+    btn-view-{theme}: Para ver detalles. 
+*/

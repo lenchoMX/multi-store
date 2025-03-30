@@ -1,0 +1,50 @@
+.theme-creative {
+    --bs-primary: #FF33A1; /* Color primario para creative */
+    --bs-btn-border-radius: 0.25rem; /* Bordes ligeramente redondeados */
+}
+
+.btn-close-creative {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    border-radius: var(--bs-btn-border-radius);
+    color: white;
+}
+
+.btn-open-creative {
+    background-color: #28a745;
+    border-color: #28a745;
+    border-radius: var(--bs-btn-border-radius);
+    color: white;
+}
+
+.btn-send-creative {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    border-radius: var(--bs-btn-border-radius);
+    color: white;
+}
+
+.btn-add-creative {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    border-radius: var(--bs-btn-border-radius);
+    color: white;
+}
+
+.btn-remove-creative {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    border-radius: var(--bs-btn-border-radius);
+    color: white;
+}
+
+.btn-view-creative {
+    background-color: #007bff;
+    border-color: #007bff;
+    border-radius: var(--bs-btn-border-radius);
+    color: white;
+}
+
+.theme-creative .swal2-popup {
+    background-color: var(--bs-primary);
+}

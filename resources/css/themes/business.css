@@ -1,0 +1,50 @@
+.theme-business {
+    --bs-primary: #3357FF; /* Color primario para business */
+    --bs-btn-border-radius: 0; /* Bordes cuadrados */
+}
+
+.btn-close-business {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    border-radius: var(--bs-btn-border-radius);
+    color: white;
+}
+
+.btn-open-business {
+    background-color: #28a745;
+    border-color: #28a745;
+    border-radius: var(--bs-btn-border-radius);
+    color: white;
+}
+
+.btn-send-business {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    border-radius: var(--bs-btn-border-radius);
+    color: white;
+}
+
+.btn-add-business {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    border-radius: var(--bs-btn-border-radius);
+    color: white;
+}
+
+.btn-remove-business {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    border-radius: var(--bs-btn-border-radius);
+    color: white;
+}
+
+.btn-view-business {
+    background-color: #007bff;
+    border-color: #007bff;
+    border-radius: var(--bs-btn-border-radius);
+    color: white;
+}
+
+.theme-business .swal2-popup {
+    background-color: var(--bs-primary);
+}

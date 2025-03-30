@@ -1,0 +1,12 @@
+### Usa los componentes en tus vistas:
+
+<!-- resources/views/products/index/minimal.blade.php -->
+@extends('layouts.minimal.app')
+
+@section('content')
+    <div class="container">
+        <h1>Productos (Minimal)</h1>
+        <x-minimal.button-close />
+        <x-minimal.button-send>Guardar</x-minimal.button-send>
+    </div>
+@endsection

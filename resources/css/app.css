@@ -1,0 +1,6 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+/* Importar los estilos de cada tema */
+@import 'themes/minimal.css';
+@import 'themes/business.css';
+@import 'themes/creative.css';
