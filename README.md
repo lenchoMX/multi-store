@@ -68,7 +68,7 @@ Ver `docs/design-decisions.md`.
 
 6. Ejecuta  blueprint:build (Laravel Shift Blueprint):
     ```
-    blueprint:build
+    php artisan blueprint:build
     ```
 
 7. Ejecuta las migraciones

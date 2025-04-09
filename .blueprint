@@ -1,0 +1,102 @@
+created:
+    - database/factories/AddressFactory.php
+    - database/factories/BrandFactory.php
+    - database/factories/CartFactory.php
+    - database/factories/CartItemFactory.php
+    - database/factories/CategoryFactory.php
+    - database/factories/CategoryStoreFactory.php
+    - database/factories/CommentFactory.php
+    - database/factories/CouponFactory.php
+    - database/factories/CurrencyFactory.php
+    - database/factories/DescriptionFactory.php
+    - database/factories/DiscountFactory.php
+    - database/factories/FeatureFactory.php
+    - database/factories/FreeShippingFactory.php
+    - database/factories/ImageFactory.php
+    - database/factories/OrderFactory.php
+    - database/factories/OrderItemFactory.php
+    - database/factories/OrderStatusFactory.php
+    - database/factories/ProductFactory.php
+    - database/factories/ShortDescriptionFactory.php
+    - database/factories/StoreFactory.php
+    - database/factories/StoreProductFactory.php
+    - database/factories/ThemeFactory.php
+    - database/factories/UserFactory.php
+    - database/factories/UserHistoryFactory.php
+    - database/migrations/2025_04_09_105408_create_addresses_table.php
+    - database/migrations/2025_04_09_105409_create_brands_table.php
+    - database/migrations/2025_04_09_105410_create_carts_table.php
+    - database/migrations/2025_04_09_105411_create_cart_items_table.php
+    - database/migrations/2025_04_09_105412_create_categories_table.php
+    - database/migrations/2025_04_09_105413_create_category_stores_table.php
+    - database/migrations/2025_04_09_105414_create_comments_table.php
+    - database/migrations/2025_04_09_105415_create_coupons_table.php
+    - database/migrations/2025_04_09_105416_create_currencies_table.php
+    - database/migrations/2025_04_09_105417_create_descriptions_table.php
+    - database/migrations/2025_04_09_105418_create_discounts_table.php
+    - database/migrations/2025_04_09_105419_create_features_table.php
+    - database/migrations/2025_04_09_105420_create_free_shippings_table.php
+    - database/migrations/2025_04_09_105421_create_images_table.php
+    - database/migrations/2025_04_09_105422_create_orders_table.php
+    - database/migrations/2025_04_09_105423_create_order_items_table.php
+    - database/migrations/2025_04_09_105424_create_order_statuses_table.php
+    - database/migrations/2025_04_09_105425_create_products_table.php
+    - database/migrations/2025_04_09_105426_create_short_descriptions_table.php
+    - database/migrations/2025_04_09_105427_create_stores_table.php
+    - database/migrations/2025_04_09_105428_create_store_products_table.php
+    - database/migrations/2025_04_09_105429_create_themes_table.php
+    - database/migrations/2025_04_09_105430_create_users_table.php
+    - database/migrations/2025_04_09_105431_create_user_histories_table.php
+    - database/migrations/2025_04_09_105432_create_address_user_table.php
+    - database/migrations/2025_04_09_105433_create_category_store_store_product_table.php
+    - database/migrations/2025_04_09_105434_create_discount_product_table.php
+    - database/migrations/2025_04_09_105435_create_feature_product_table.php
+    - app/Models/Address.php
+    - app/Models/Brand.php
+    - app/Models/Cart.php
+    - app/Models/CartItem.php
+    - app/Models/Category.php
+    - app/Models/CategoryStore.php
+    - app/Models/Comment.php
+    - app/Models/Coupon.php
+    - app/Models/Currency.php
+    - app/Models/Description.php
+    - app/Models/Discount.php
+    - app/Models/Feature.php
+    - app/Models/FreeShipping.php
+    - app/Models/Image.php
+    - app/Models/Order.php
+    - app/Models/OrderItem.php
+    - app/Models/OrderStatus.php
+    - app/Models/Product.php
+    - app/Models/ShortDescription.php
+    - app/Models/Store.php
+    - app/Models/StoreProduct.php
+    - app/Models/Theme.php
+    - app/Models/User.php
+    - app/Models/UserHistory.php
+models:
+    Address: { checkout_id: id, postal_code: string, address_line_1: string, address_line_2: 'string nullable', reference: 'string nullable', type: 'enum:sepomex,standard default:standard', relationships: { belongsToMany: User } }
+    Brand: { name: 'string:99', slug: 'string:255', image: 'string:99 nullable', relationships: { hasMany: Product } }
+    Cart: { user_id: 'id foreign:users nullable', store_id: 'id foreign:stores', session_id: 'string nullable', relationships: { hasMany: CartItem } }
+    CartItem: { cart_id: 'id foreign', store_product_id: 'id foreign:store_products', quantity: 'integer default:1', price: 'decimal:8,2', timestamps: timestamps }
+    Category: { store_id: 'id foreign:stores', name: string, slug: 'string unique', description: 'text nullable', timestamps: timestamps, relationships: { hasMany: CategoryStore } }
+    CategoryStore: { store_id: 'id foreign', category_id: 'id foreign', parent_id: 'id foreign:category_stores nullable', timestamps: timestamps, relationships: { belongsToMany: StoreProduct } }
+    Comment: { user_id: 'id foreign:users', store_product_id: 'id foreign', content: text, rating: 'decimal:3,1 nullable', timestamps: timestamps }
+    Coupon: { code: 'string unique', store_id: 'id foreign', type: 'enum:percentage,fixed', value: 'decimal:8,2', usage_limit: 'integer nullable', start_date: 'timestamp nullable', end_date: 'timestamp nullable', is_active: 'boolean default:true', relationships: { hasMany: Order } }
+    Currency: { code: string, name: string, exchange_rate: 'decimal:10,6', relationships: { hasMany: 'Store, StoreProduct' } }
+    Description: { product_id: 'id foreign', content: text, timestamps: timestamps }
+    Discount: { store_id: 'id foreign', type: 'enum:percentage,fixed', value: 'decimal:8,2', start_date: 'timestamp nullable', end_date: 'timestamp nullable', is_active: 'boolean default:true', relationships: { belongsToMany: Product } }
+    Feature: { name: string, parent_id: 'id foreign:features nullable', relationships: { belongsToMany: Product } }
+    FreeShipping: { store_id: 'id foreign', min_order_amount: 'decimal:8,2 nullable', start_date: 'timestamp nullable', end_date: 'timestamp nullable', is_active: 'boolean default:true' }
+    Image: { product_id: 'id foreign', url: string }
+    Order: { store_id: 'id foreign:stores', user_id: 'id foreign:users nullable', shipping_address_id: 'id foreign:addresses', coupon_id: 'id foreign:coupons nullable', order_number: 'string unique', order_date: 'timestamp useCurrent', total_amount: 'decimal:8,2', order_status_id: 'id foreign:order_statuses', guest_name: 'string nullable', guest_email: 'string nullable', guest_phone: 'string nullable', relationships: { hasMany: OrderItem } }
+    OrderItem: { order_id: 'id foreign', product_id: 'id foreign', quantity: integer, unit_price: 'decimal:8,2' }
+    OrderStatus: { name: string, relationships: { hasMany: Order } }
+    Product: { slug: 'string unique', name: string, price: 'decimal:8,2', brand_id: 'id foreign', relationships: { belongsToMany: 'Feature, Discount', hasMany: 'Description, Image, StoreProduct, ShortDescription' } }
+    ShortDescription: { product_id: 'id foreign', content: text }
+    Store: { name: string, store_url: 'string unique', email: 'string nullable', whatsapp: 'string nullable', theme_id: 'id foreign', currency_id: 'id foreign:currencies', settings: 'json nullable', relationships: { hasMany: 'User, StoreProduct, Category, Cart, Order, Address, Discount, Coupon, FreeShipping' } }
+    StoreProduct: { store_id: 'id foreign', product_id: 'id foreign', image_id: 'id foreign nullable', description_id: 'id foreign nullable', short_description_id: 'id foreign nullable', price: 'decimal:8,2', currency_id: 'id foreign', stock: 'integer default:999', is_active: 'boolean default:true', view: 'integer default:0', rating_value: 'decimal:3,1 nullable', review_count: 'integer default:0', comment_count: 'integer default:0', primary_category_store_id: 'id foreign nullable', relationships: { belongsToMany: CategoryStore, hasMany: 'Comment, CartItem' } }
+    Theme: { name: 'string unique', description: 'text nullable', css_file: 'string nullable', layout_file: string, relationships: { hasMany: Store } }
+    User: { store_id: 'id foreign', given_name: string, family_name: string, additional_name: 'string nullable', email: string, phone: 'string nullable', password: string, risk_level: 'enum:low,medium,high default:low', trust_score: 'integer default:50', last_risk_update: 'timestamp nullable', relationships: { belongsToMany: Address, hasMany: 'Cart, Order, Comment, UserHistory' } }
+    UserHistory: { user_id: 'id foreign', type: string, value: string, verified_at: 'timestamp nullable' }
