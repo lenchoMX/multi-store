@@ -23,34 +23,34 @@ created:
     - database/factories/ThemeFactory.php
     - database/factories/UserFactory.php
     - database/factories/UserHistoryFactory.php
-    - database/migrations/2025_04_09_105408_create_addresses_table.php
-    - database/migrations/2025_04_09_105409_create_brands_table.php
-    - database/migrations/2025_04_09_105410_create_carts_table.php
-    - database/migrations/2025_04_09_105411_create_cart_items_table.php
-    - database/migrations/2025_04_09_105412_create_categories_table.php
-    - database/migrations/2025_04_09_105413_create_category_stores_table.php
-    - database/migrations/2025_04_09_105414_create_comments_table.php
-    - database/migrations/2025_04_09_105415_create_coupons_table.php
-    - database/migrations/2025_04_09_105416_create_currencies_table.php
-    - database/migrations/2025_04_09_105417_create_descriptions_table.php
-    - database/migrations/2025_04_09_105418_create_discounts_table.php
-    - database/migrations/2025_04_09_105419_create_features_table.php
-    - database/migrations/2025_04_09_105420_create_free_shippings_table.php
-    - database/migrations/2025_04_09_105421_create_images_table.php
-    - database/migrations/2025_04_09_105422_create_orders_table.php
-    - database/migrations/2025_04_09_105423_create_order_items_table.php
-    - database/migrations/2025_04_09_105424_create_order_statuses_table.php
-    - database/migrations/2025_04_09_105425_create_products_table.php
-    - database/migrations/2025_04_09_105426_create_short_descriptions_table.php
-    - database/migrations/2025_04_09_105427_create_stores_table.php
-    - database/migrations/2025_04_09_105428_create_store_products_table.php
-    - database/migrations/2025_04_09_105429_create_themes_table.php
-    - database/migrations/2025_04_09_105430_create_users_table.php
-    - database/migrations/2025_04_09_105431_create_user_histories_table.php
-    - database/migrations/2025_04_09_105432_create_address_user_table.php
-    - database/migrations/2025_04_09_105433_create_category_store_store_product_table.php
-    - database/migrations/2025_04_09_105434_create_discount_product_table.php
-    - database/migrations/2025_04_09_105435_create_feature_product_table.php
+    - database/migrations/2025_04_13_065705_create_addresses_table.php
+    - database/migrations/2025_04_13_065706_create_brands_table.php
+    - database/migrations/2025_04_13_065707_create_carts_table.php
+    - database/migrations/2025_04_13_065708_create_cart_items_table.php
+    - database/migrations/2025_04_13_065709_create_categories_table.php
+    - database/migrations/2025_04_13_065710_create_category_stores_table.php
+    - database/migrations/2025_04_13_065711_create_comments_table.php
+    - database/migrations/2025_04_13_065712_create_coupons_table.php
+    - database/migrations/2025_04_13_065713_create_currencies_table.php
+    - database/migrations/2025_04_13_065714_create_descriptions_table.php
+    - database/migrations/2025_04_13_065715_create_discounts_table.php
+    - database/migrations/2025_04_13_065716_create_features_table.php
+    - database/migrations/2025_04_13_065717_create_free_shippings_table.php
+    - database/migrations/2025_04_13_065718_create_images_table.php
+    - database/migrations/2025_04_13_065719_create_orders_table.php
+    - database/migrations/2025_04_13_065720_create_order_items_table.php
+    - database/migrations/2025_04_13_065721_create_order_statuses_table.php
+    - database/migrations/2025_04_13_065722_create_products_table.php
+    - database/migrations/2025_04_13_065723_create_short_descriptions_table.php
+    - database/migrations/2025_04_13_065724_create_stores_table.php
+    - database/migrations/2025_04_13_065725_create_store_products_table.php
+    - database/migrations/2025_04_13_065726_create_themes_table.php
+    - database/migrations/2025_04_13_065727_create_users_table.php
+    - database/migrations/2025_04_13_065728_create_user_histories_table.php
+    - database/migrations/2025_04_13_065729_create_address_user_table.php
+    - database/migrations/2025_04_13_065730_create_category_store_store_product_table.php
+    - database/migrations/2025_04_13_065731_create_discount_product_table.php
+    - database/migrations/2025_04_13_065732_create_feature_product_table.php
     - app/Models/Address.php
     - app/Models/Brand.php
     - app/Models/Cart.php
@@ -78,11 +78,11 @@ created:
 models:
     Address: { checkout_id: id, postal_code: string, address_line_1: string, address_line_2: 'string nullable', reference: 'string nullable', type: 'enum:sepomex,standard default:standard', relationships: { belongsToMany: User } }
     Brand: { name: 'string:99', slug: 'string:255', image: 'string:99 nullable', relationships: { hasMany: Product } }
-    Cart: { user_id: 'id foreign:users nullable', store_id: 'id foreign:stores', session_id: 'string nullable', relationships: { hasMany: CartItem } }
-    CartItem: { cart_id: 'id foreign', store_product_id: 'id foreign:store_products', quantity: 'integer default:1', price: 'decimal:8,2', timestamps: timestamps }
-    Category: { store_id: 'id foreign:stores', name: string, slug: 'string unique', description: 'text nullable', timestamps: timestamps, relationships: { hasMany: CategoryStore } }
+    Cart: { user_id: 'id foreign nullable', store_id: 'id foreign:stores', session_id: 'string nullable', relationships: { hasMany: CartItem } }
+    CartItem: { cart_id: 'id foreign', store_product_id: 'id foreign', quantity: 'integer default:1', price: 'decimal:8,2', timestamps: timestamps }
+    Category: { name: string, slug: 'string unique', description: 'text nullable', timestamps: timestamps, relationships: { hasMany: CategoryStore } }
     CategoryStore: { store_id: 'id foreign', category_id: 'id foreign', parent_id: 'id foreign:category_stores nullable', timestamps: timestamps, relationships: { belongsToMany: StoreProduct } }
-    Comment: { user_id: 'id foreign:users', store_product_id: 'id foreign', content: text, rating: 'decimal:3,1 nullable', timestamps: timestamps }
+    Comment: { user_id: 'id foreign', store_product_id: 'id foreign', content: text, rating: 'decimal:3,1 nullable', timestamps: timestamps }
     Coupon: { code: 'string unique', store_id: 'id foreign', type: 'enum:percentage,fixed', value: 'decimal:8,2', usage_limit: 'integer nullable', start_date: 'timestamp nullable', end_date: 'timestamp nullable', is_active: 'boolean default:true', relationships: { hasMany: Order } }
     Currency: { code: string, name: string, exchange_rate: 'decimal:10,6', relationships: { hasMany: 'Store, StoreProduct' } }
     Description: { product_id: 'id foreign', content: text, timestamps: timestamps }

@@ -17,7 +17,7 @@ models:
       hasMany: Product
 
   Cart:
-    user_id: id foreign:users nullable
+    user_id: id foreign nullable
     store_id: id foreign:stores
     session_id: string nullable
     relationships:
@@ -25,13 +25,12 @@ models:
 
   CartItem:
     cart_id: id foreign
-    store_product_id: id foreign:store_products
+    store_product_id: id foreign
     quantity: integer default:1
     price: decimal:8,2
     timestamps: true
 
   Category:
-    store_id: id foreign:stores
     name: string
     slug: string unique
     description: text nullable
@@ -48,7 +47,7 @@ models:
       belongsToMany: StoreProduct
 
   Comment:
-    user_id: id foreign:users
+    user_id: id foreign
     store_product_id: id foreign
     content: text
     rating: decimal:3,1 nullable

@@ -5,7 +5,6 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\Category;
-use App\Models\Store;
 
 class CategoryFactory extends Factory
 {
@@ -22,7 +21,6 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'store_id' => Store::factory(),
             'name' => fake()->name(),
             'slug' => fake()->slug(),
             'description' => fake()->text(),
